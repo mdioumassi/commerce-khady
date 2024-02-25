@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<p>
+			<h1>Nos dernières modèles de tresses</h1>
+			{{ render(controller('App\\Controller\\TresseController::lastTresseAdded')) }}
+			{% include "shared/_lien.html.twig" with {
+            'class': 'float-end',
+			'path': path('app.tresse'),
+            'icone': 'fa-solid fa-square-arrow-up-right',
+            'text': "Toutes nos tresses"
+       }%}
+		</p>
+		<p>
+			<h1>Nos derniers wax</h1>
+			{{ render(controller('App\\Controller\\WaxController::lastWaxAdded')) }}
+			{% include "shared/_lien.html.twig" with {
+            'class': 'float-end',
+			'path': '#',
+            'icone': 'fa-solid fa-square-arrow-up-right',
+            'text': "Toutes nos waxs"
+       }%}
+		</p>
+		<p>
+			<h1>Nos derniers savons</h1>
+			{{ render(controller('App\\Controller\\SavonController::lastSavonAdded')) }}
+		</p>
+		<hr>
+		<h2>Un service irreprochable</h2>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam beatae rerum obcaecati harum in exercitationem.</p>
+		<div class="row">
+			{% include "shared/_assurance.html.twig" with {
+            'color': 'primary',
+            'icone': 'fas fa-truck ',
+            'text': "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat nobis tempore perspiciatis magnam consectetur numquam?"
+       }%}
+			{% include "shared/_assurance.html.twig" with {
+            'color': 'success',
+            'icone': 'fas fa-check',
+            'text': "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat nobis tempore perspiciatis magnam consectetur numquam?"
+       }%}
+			{% include "shared/_assurance.html.twig" with {
+            'color': 'warning',
+            'icone': 'fas fa-lock',
+            'text': "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat nobis tempore perspiciatis magnam consectetur numquam?"
+       }%}
+		</div>
+	</div>
+{% endblock %}

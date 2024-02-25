@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos tresses
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Nos tresses</h1>
+		<div class="row">
+			{% for tresse in tresses %}
+				<div class="col-sm-3 mb-4">
+					<div class="card">
+						<img src="{{ tresse.image }}" class="img-fluid" alt="">
+						<div class="card-body">
+							<h4 class="cartd-title">{{ tresse.title }}</h4>
+							<p class="card-text">
+								{{ tresse.description }}
+							</p>
+							<a href="#" class="btn btn-primary btn-sm">Détails</a>
+							<a href="#" class="btn btn-success btn-sm">Ajouter au panier</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
