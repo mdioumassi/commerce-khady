@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-sm bg-success navbar-success">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-light {{ app.current_route == 'app.home' ? 'active' : ''}}" href="{{ path('app.home') }}">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light {{ app.current_route == 'app.tresse' ? 'active' : ''}}" href="{{ path('app.tresse') }}">Nos tresses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light {{ app.current_route == 'app.wax' ? 'active' : ''}}" href="{{ path('app.wax') }}">Nos waxs</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{tresse.title}}
+{% endblock %}
+
+{% block body %}
+	<div style="background:url(https://picsum.photos/500/500); no-repeat" class="py-5 text-white text-center">
+		<h1>My First Bootstrap 5 Page</h1>
+		<p>Resize this responsive page to see the effect!</p>
+	</div>
+	{% include 'shared/_navbar.html.twig' %}
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-5">
+				<img class="img-fluid" src="{{ tresse.image }}" alt="">
+			</div>
+            <div class="col">
+                <h1>{{ tresse.title}}({{tresse.price}}€)</h1>
+                <span class="badge bg-primary">{{ tresse.category }}</span>
+                <p>{{ tresse.description }}</p>
+                <a href="#" class="btn btn-success btn-long">
+                <i class="fas fa-shopping-cart"></i>
+                Ajouter au panier
+                </a>
+            </div>
+		</div>
+	</div>
+{% endblock %}

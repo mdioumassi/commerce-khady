@@ -4,6 +4,11 @@
 {% endblock %}
 
 {% block body %}
+ 	<div style="background:url(https://picsum.photos/500/500); no-repeat" class="py-5 text-white text-center">
+    <h1>My First Bootstrap 5 Page</h1>
+    <p>Resize this responsive page to see the effect!</p> 
+    </div>
+    {% include 'shared/_navbar.html.twig' %}
 	<div class="container">
 		<h1>Nos tresses</h1>
 		<div class="row">
@@ -16,7 +21,7 @@
 							<p class="card-text">
 								{{ tresse.description }}
 							</p>
-							<a href="#" class="btn btn-primary btn-sm">Détails</a>
+							<a href="{{path('app.tresse.show', {'id':tresse.id})}}" class="btn btn-primary btn-sm">Détails</a>
 							<a href="#" class="btn btn-success btn-sm">Ajouter au panier</a>
 						</div>
 					</div>

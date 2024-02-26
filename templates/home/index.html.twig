@@ -4,12 +4,17 @@
 {% endblock %}
 
 {% block body %}
+ 	<div style="background:url(https://picsum.photos/500/500); no-repeat" class="py-5 text-white text-center">
+    <h1>My First Bootstrap 5 Page</h1>
+    <p>Resize this responsive page to see the effect!</p> 
+    </div>
+    {% include 'shared/_navbar.html.twig' %}
 	<div class="container">
 		<p>
 			<h1>Nos dernières modèles de tresses</h1>
 			{{ render(controller('App\\Controller\\TresseController::lastTresseAdded')) }}
 			{% include "shared/_lien.html.twig" with {
-            'class': 'float-end',
+            'class': 'float-end nav-link text-success',
 			'path': path('app.tresse'),
             'icone': 'fa-solid fa-square-arrow-up-right',
             'text': "Toutes nos tresses"
@@ -19,8 +24,8 @@
 			<h1>Nos derniers wax</h1>
 			{{ render(controller('App\\Controller\\WaxController::lastWaxAdded')) }}
 			{% include "shared/_lien.html.twig" with {
-            'class': 'float-end',
-			'path': '#',
+            'class': 'float-end nav-link text-success',
+			'path': path('app.wax'),
             'icone': 'fa-solid fa-square-arrow-up-right',
             'text': "Toutes nos waxs"
        }%}

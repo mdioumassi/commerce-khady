@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -107,13 +108,16 @@ class TresseController extends AbstractController
         ]);
     }
 
-    public function showTresse(int $id): Response
+    #[Route('/tresse/{id}', name: 'app.tresse.show', methods: ['GET', 'POST'])]
+    public function showTresse(int $id, Request $request): Response
     {
+        dd($request);
         $tresse = [
             'id' => $id,
             'title' => 'Tresse ' . $id,
             'description' => 'Tresse ' . $id . ' description',
-            'image' => "https://picsum.photos/200/200",
+            'image' => "https://picsum.photos/500/500",
+            'price' => 10,
             'category' => 'Fille'
         ];
         return $this->render('tresse/show_tresse.html.twig', [
