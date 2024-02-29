@@ -37,10 +37,16 @@
 									<div id="address-client">
 										<label for="address-shift">Entrer votre adresse complet:</label>
 										<textarea class="form-control" rows="4" id="address-shift" name="address-shift"></textarea>
+										<div class="mb-3 mt-3">
+											<div class="input-group mb-3">
+												<span class="input-group-text">Frais de déplacement</span>
+												<input type="text" class="form-control" id="frais-deplacement" name="frais-deplacement" value="10€" readonly>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="mb-3 mt-3 text-center">
-									<label for="number" class="form-label">Nombre des filles à tresser:</label>
+								<div class="mb-3 mt-3 text-center input-group">
+									<span class="input-group-text">Nombre des à tresser:</span>
 									<input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5">
 								</div>
 							</div>
@@ -70,7 +76,7 @@
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi9-12" name="optradio" value="mardi-9-12"></td>
 									<td>12h-22h</td>
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi12-22" name="optradio" value="mardi-12-22"></td>
-                                    <td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardiAllDay" name="optradio" value="mardi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardiAllDay" name="optradio" value="mardi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Mercredi</td>
@@ -78,7 +84,7 @@
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi9-12" name="optradio" value="mercredi-9-12"></td>
 									<td>12h-22h</td>
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi12-22" name="optradio" value="mercredi-12-22"></td>
-                                    <td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercrediAllDay" name="optradio" value="mercredi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercrediAllDay" name="optradio" value="mercredi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Jeudi</td>
@@ -86,7 +92,7 @@
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi9-12" name="optradio" value="jeudi-9-12"></td>
 									<td>12h-22h</td>
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi12-22" name="optradio" value="jeudi-12-22"></td>
-                                    <td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudiAllDay" name="optradio" value="jeudi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudiAllDay" name="optradio" value="jeudi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Vendredi</td>
@@ -94,7 +100,7 @@
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi9-12" name="optradio" value="vendredi-9-12"></td>
 									<td>12h-22h</td>
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi12-22" name="optradio" value="vendredi-12-22"></td>
-                                    <td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendrediAllDay" name="optradio" value="vzndredi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendrediAllDay" name="optradio" value="vzndredi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Samedi</td>
@@ -102,7 +108,7 @@
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi9-12" name="optradio" value="samedi-9-12"></td>
 									<td>12h-22h</td>
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi12-22" name="optradio" value="samedi-12-22"></td>
-                                    <td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamediAllDay" name="optradio" value="samedi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamediAllDay" name="optradio" value="samedi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Dimanche</td>
@@ -110,7 +116,7 @@
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio1" name="optradio" value="dimanche-9-12"></td>
 									<td>12h-22h</td>
 									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimanche12-22" name="optradio" value="dimanche-12-22"></td>
-                                    <td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimancheAllDay" name="optradio" value="dimanche-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimancheAllDay" name="optradio" value="dimanche-all-day"></td>
 								</tr>
 							</tbody>
 						</table>

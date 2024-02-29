@@ -111,7 +111,10 @@ class TresseController extends AbstractController
     #[Route('/tresse/{id}', name: 'app.tresse.show', methods: ['GET', 'POST'])]
     public function showTresse(int $id, Request $request): Response
     {
-        dd($request);
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            dd($data);
+        }
         $tresse = [
             'id' => $id,
             'title' => 'Tresse ' . $id,
