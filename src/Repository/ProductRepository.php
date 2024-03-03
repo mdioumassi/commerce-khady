@@ -45,4 +45,23 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findAllProductsTresses()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->innerJoin('p.tresse','c')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findTressesByProduct(Product $product)
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->innerJoin('p.tresse','c', 'WITH', 'p.id = c.product')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $product->getSlug())
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

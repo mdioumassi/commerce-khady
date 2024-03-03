@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{tresse.title}}
+	{{product.name}}
 {% endblock %}
 
 {% block body %}
@@ -11,20 +11,22 @@
 	</div>
 	{% include 'shared/_navbar.html.twig' %}
 	<div class="container mt-5">
+	{% set ismove = product.tresse.isMove %}
 		<div class="row">
 			<div class="col-5">
-				<img class="img-fluid" src="{{ tresse.image }}" alt="">
+				<img class="img-fluid" src="https://picsum.photos/600/600" alt="">
 			</div>
 			<div class="col">
-				<h1>{{ tresse.title}}({{tresse.price}}€)</h1>
-				<span class="badge bg-primary">{{ tresse.category }}</span>
-				<p>{{ tresse.description }}</p>
+			{{dump(product)}}
+				<h1>{{ product.name}}({{product.price/100}}€)</h1>
+				<span class="badge bg-primary">{{ product.tresse.gender }}</span>
+				<p>{{ product.description }}</p>
 				<form method="POST">
 					<div class="col-9">
-						<fieldset class="tresse-border">
-							<legend class="legend-tresse-border">
+						<fieldset class="product-border">
+							<legend class="legend-product-border">
 								<div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" id="mySwitch" name="deplacement" value="no">
+									<input class="form-check-input" type="checkbox" id="mySwitch" name="deplacement">
 									<label class="form-check-label" for="mySwitch">Je me deplace chez vous !</label>
 								</div>
 							</legend>
@@ -32,7 +34,8 @@
 								<div class="col">
 									<div class="mb-3 mt-3" id="encart-me-deplacer">
 										<img class="img-fluid" src="{{ asset('images/monadresse.png') }}" alt="">
-										<textarea class="form-control" rows="4" id="mon-address" name="mon-address"></textarea>
+										<label for="mon-address">Mon adrese complet:</label>
+										<textarea class="form-control" rows="4" id="mon-address" name="mon-address">{{ product.tresse.myAddress}}</textarea>
 									</div>
 									<div id="address-client">
 										<label for="address-shift">Entrer votre adresse complet:</label>
@@ -46,7 +49,7 @@
 									</div>
 								</div>
 								<div class="mb-3 mt-3 text-center input-group">
-									<span class="input-group-text">Nombre des à tresser:</span>
+									<span class="input-group-text">Nombre de personnes à tresser:</span>
 									<input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5">
 								</div>
 							</div>
@@ -65,58 +68,58 @@
 								<tr>
 									<td>Lundi</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundi9-12" name="optradio" value="lundi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundi9-12" name="dateChoice" value="lundi-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundi12-22" name="optradio" value="lundi-9-12"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundiAllDay" name="optradio" value="all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundi12-22" name="dateChoice" value="lundi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundiAllDay" name="dateChoice" value="all-day"></td>
 								</tr>
 								<tr>
 									<td>Mardi</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi9-12" name="optradio" value="mardi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi9-12" name="dateChoice" value="mardi-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi12-22" name="optradio" value="mardi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardiAllDay" name="optradio" value="mardi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi12-22" name="dateChoice" value="mardi-12-22"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardiAllDay" name="dateChoice" value="mardi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Mercredi</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi9-12" name="optradio" value="mercredi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi9-12" name="dateChoice" value="mercredi-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi12-22" name="optradio" value="mercredi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercrediAllDay" name="optradio" value="mercredi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi12-22" name="dateChoice" value="mercredi-12-22"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercrediAllDay" name="dateChoice" value="mercredi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Jeudi</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi9-12" name="optradio" value="jeudi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi9-12" name="dateChoice" value="jeudi-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi12-22" name="optradio" value="jeudi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudiAllDay" name="optradio" value="jeudi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi12-22" name="dateChoice" value="jeudi-12-22"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudiAllDay" name="dateChoice" value="jeudi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Vendredi</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi9-12" name="optradio" value="vendredi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi9-12" name="dateChoice" value="vendredi-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi12-22" name="optradio" value="vendredi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendrediAllDay" name="optradio" value="vzndredi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi12-22" name="dateChoice" value="vendredi-12-22"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendrediAllDay" name="dateChoice" value="vzndredi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Samedi</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi9-12" name="optradio" value="samedi-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi9-12" name="dateChoice" value="samedi-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi12-22" name="optradio" value="samedi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamediAllDay" name="optradio" value="samedi-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi12-22" name="dateChoice" value="samedi-12-22"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamediAllDay" name="dateChoice" value="samedi-all-day"></td>
 								</tr>
 								<tr>
 									<td>Dimanche</td>
 									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio1" name="optradio" value="dimanche-9-12"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio1" name="dateChoice" value="dimanche-9-12"></td>
 									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimanche12-22" name="optradio" value="dimanche-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimancheAllDay" name="optradio" value="dimanche-all-day"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimanche12-22" name="dateChoice" value="dimanche-12-22"></td>
+									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimancheAllDay" name="dateChoice" value="dimanche-all-day"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -132,7 +135,7 @@
 {% block javascripts %}
 	<script>
 		$(document).ready(function () {
-$('#mon-address').val('Chez moi !\nAdresse: 10 Allée des cèdres 93420 Villepinte\nBâtiment: A\nTéléphone: 06 00 00 00 00');
+$//('#mon-address').val('Chez moi !\nAdresse: 10 Allée des cèdres 93420 Villepinte\nBâtiment: A\nTéléphone: 06 00 00 00 00');
 $("#address-client").hide();
 $("#mySwitch").click(function () {
 if ($(this).is(":checked")) {

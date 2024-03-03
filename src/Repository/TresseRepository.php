@@ -45,4 +45,12 @@ class TresseRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findAllTresses()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'ASC')
+            ->innerJoin('t.product','c')
+            ->getQuery()
+            ->getResult();
+    }
 }

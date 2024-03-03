@@ -31,12 +31,12 @@ class AppFixtures extends Fixture
             $manager->persist($product);
 
             $tresse = new Tresse();
-            // $tresse->setIsMove($faker->boolean());
-            // $tresse->setMyAddress($faker->address());
+            //$tresse->setIsMove($faker->boolean());
+            $tresse->setMyAddress($faker->address());
             // $tresse->setYourAddress($faker->address());
             // $tresse->setMovePrice($faker->numberBetween(1000, 10000));
             // $tresse->setNumberPerson($faker->numberBetween(1, 5));
-            // $tresse->setGenre($faker->randomElement(['Fille', 'Femme', 'Homme', 'Garçon', 'Mixte', 'Unisexe', 'Autre']));
+            $tresse->setGender($faker->randomElement(['Jeune Fille', 'Fille', 'Dame']));
             $tresse->setProduct($product);
             $manager->persist($tresse);
         }
