@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Product;
+use App\Entity\ProductType;
 use App\Entity\Tresse;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -21,6 +22,18 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
         $faker->addProvider(new \Liior\Faker\Prices($faker));
+        //Tresse
+        $productType1 = new ProductType();
+        $productType1->setName('Tresse');
+        $manager->persist($productType1);
+        //Wax
+        $productType2 = new ProductType();
+        $productType2->setName('Wax');
+        $manager->persist($productType2);
+        //Savon
+        $productType3 = new ProductType();
+        $productType3->setName('Savon');
+        $manager->persist($productType3);
 
         for ($i = 0; $i < 20; $i++) {
             $product = new Product();
@@ -28,17 +41,8 @@ class AppFixtures extends Fixture
             $product->setSlug(strtolower($this->slugger->slug($product->getName())));
             $product->setPrice($faker->price(2000, 3000));
             $product->setDescription($faker->text(200));
+            $product->setProductType($productType1);
             $manager->persist($product);
-
-            $tresse = new Tresse();
-            //$tresse->setIsMove($faker->boolean());
-            $tresse->setMyAddress($faker->address());
-            // $tresse->setYourAddress($faker->address());
-            // $tresse->setMovePrice($faker->numberBetween(1000, 10000));
-            // $tresse->setNumberPerson($faker->numberBetween(1, 5));
-            $tresse->setGender($faker->randomElement(['Jeune Fille', 'Fille', 'Dame']));
-            $tresse->setProduct($product);
-            $manager->persist($tresse);
         }
 
         $manager->flush();

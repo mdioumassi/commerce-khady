@@ -54,6 +54,16 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByProductSlug(Product $product)
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $product->getSlug())
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findTressesByProduct(Product $product)
     {
         return $this->createQueryBuilder('p')
@@ -63,5 +73,16 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('slug', $product->getSlug())
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findAllByTypeProduct($typeProduct)
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->innerJoin('p.productType','c')
+            ->where('c.name = :type')
+            ->setParameter('type', $typeProduct)
+            ->getQuery()
+            ->getResult();
     }
 }

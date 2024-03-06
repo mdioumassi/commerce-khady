@@ -25,17 +25,17 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?User $user = null;
-
     #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
     private ?Wax $wax = null;
 
     #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
     private ?Savon $savon = null;
 
-    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Tresse $tresse = null;
+
+    #[ORM\ManyToOne(inversedBy: 'product')]
+    private ?ProductType $productType = null;
 
     public function getId(): ?int
     {
@@ -90,18 +90,6 @@ class Product
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getWax(): ?Wax
     {
         return $this->wax;
@@ -136,19 +124,26 @@ class Product
         return $this;
     }
 
-    public function getTresse(): ?Tresse
+    public function getTresses(): ?Tresse
     {
         return $this->tresse;
     }
 
-    public function setTresse(Tresse $tresse): static
+    public function setTresses(?Tresse $tresse): static
     {
-        // set the owning side of the relation if necessary
-        if ($tresse->getProduct() !== $this) {
-            $tresse->setProduct($this);
-        }
-
         $this->tresse = $tresse;
+
+        return $this;
+    }
+
+    public function getProductType(): ?ProductType
+    {
+        return $this->productType;
+    }
+
+    public function setProductType(?ProductType $productType): static
+    {
+        $this->productType = $productType;
 
         return $this;
     }

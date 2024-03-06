@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TresseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TresseRepository::class)]
@@ -31,9 +33,17 @@ class Tresse
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $gender = null;
 
-    #[ORM\OneToOne(inversedBy: 'tresse', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Product $product = null;
+    #[ORM\ManyToOne(inversedBy: 'tresse')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Calendar $calendar = null;
+
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'tresses')]
+    private Collection $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,14 +122,44 @@ class Tresse
         return $this;
     }
 
-    public function getProduct(): ?Product
+    public function getCalendar(): ?Calendar
     {
-        return $this->product;
+        return $this->calendar;
     }
 
-    public function setProduct(Product $product): static
+    public function setCalendar(?Calendar $calendar): static
     {
-        $this->product = $product;
+        $this->calendar = $calendar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setTresses($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getTresses() === $this) {
+                $product->setTresses(null);
+            }
+        }
 
         return $this;
     }

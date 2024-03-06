@@ -11,15 +11,13 @@
 	</div>
 	{% include 'shared/_navbar.html.twig' %}
 	<div class="container mt-5">
-	{% set ismove = product.tresse.isMove %}
 		<div class="row">
 			<div class="col-5">
 				<img class="img-fluid" src="https://picsum.photos/600/600" alt="">
 			</div>
 			<div class="col">
-			{{dump(product)}}
 				<h1>{{ product.name}}({{product.price/100}}€)</h1>
-				<span class="badge bg-primary">{{ product.tresse.gender }}</span>
+				{# <span class="badge bg-primary">{{ product.tresse.gender }}</span> #}
 				<p>{{ product.description }}</p>
 				<form method="POST">
 					<div class="col-9">
@@ -35,7 +33,7 @@
 									<div class="mb-3 mt-3" id="encart-me-deplacer">
 										<img class="img-fluid" src="{{ asset('images/monadresse.png') }}" alt="">
 										<label for="mon-address">Mon adrese complet:</label>
-										<textarea class="form-control" rows="4" id="mon-address" name="mon-address">{{ product.tresse.myAddress}}</textarea>
+										<textarea class="form-control" rows="4" id="mon-address" name="mon-address"></textarea>
 									</div>
 									<div id="address-client">
 										<label for="address-shift">Entrer votre adresse complet:</label>
@@ -54,75 +52,7 @@
 								</div>
 							</div>
 						</fieldset>
-						<span>Disponibilités:</span>
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>Jour</th>
-									<th colspan="2">Matin</th>
-									<th colspan="2">Après midi</th>
-									<th>Toute la journée</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Lundi</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundi9-12" name="dateChoice" value="lundi-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundi12-22" name="dateChoice" value="lundi-9-12"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioLundiAllDay" name="dateChoice" value="all-day"></td>
-								</tr>
-								<tr>
-									<td>Mardi</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi9-12" name="dateChoice" value="mardi-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardi12-22" name="dateChoice" value="mardi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMardiAllDay" name="dateChoice" value="mardi-all-day"></td>
-								</tr>
-								<tr>
-									<td>Mercredi</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi9-12" name="dateChoice" value="mercredi-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercredi12-22" name="dateChoice" value="mercredi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioMercrediAllDay" name="dateChoice" value="mercredi-all-day"></td>
-								</tr>
-								<tr>
-									<td>Jeudi</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi9-12" name="dateChoice" value="jeudi-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudi12-22" name="dateChoice" value="jeudi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioJeudiAllDay" name="dateChoice" value="jeudi-all-day"></td>
-								</tr>
-								<tr>
-									<td>Vendredi</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi9-12" name="dateChoice" value="vendredi-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendredi12-22" name="dateChoice" value="vendredi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioVendrediAllDay" name="dateChoice" value="vzndredi-all-day"></td>
-								</tr>
-								<tr>
-									<td>Samedi</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi9-12" name="dateChoice" value="samedi-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamedi12-22" name="dateChoice" value="samedi-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioSamediAllDay" name="dateChoice" value="samedi-all-day"></td>
-								</tr>
-								<tr>
-									<td>Dimanche</td>
-									<td>9h-12h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio1" name="dateChoice" value="dimanche-9-12"></td>
-									<td>12h-22h</td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimanche12-22" name="dateChoice" value="dimanche-12-22"></td>
-									<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radioDimancheAllDay" name="dateChoice" value="dimanche-all-day"></td>
-								</tr>
-							</tbody>
-						</table>
+						{{ render(controller('App\\Controller\\CalendarController::index')) }}
 						<div class="d-grid mb-5">
 							<button type="submit" class="btn btn-primary btn-block">Valider</button>
 						</div>
@@ -135,7 +65,7 @@
 {% block javascripts %}
 	<script>
 		$(document).ready(function () {
-$//('#mon-address').val('Chez moi !\nAdresse: 10 Allée des cèdres 93420 Villepinte\nBâtiment: A\nTéléphone: 06 00 00 00 00');
+$('#mon-address').val('Chez moi !\nAdresse: 10 Allée des cèdres 93420 Villepinte\nBâtiment: A\nTéléphone: 06 00 00 00 00');
 $("#address-client").hide();
 $("#mySwitch").click(function () {
 if ($(this).is(":checked")) {
