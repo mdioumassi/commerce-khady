@@ -1,4 +1,4 @@
-<span>Disponibilités:</span>
+<span>Disponibilités<span class="text-danger">*</span>:</span>
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -14,20 +14,20 @@
 				<td>{{ calendar.today }}</td>
 				<td>{{ calendar.morning }}</td>
 				{% if calendar.isMorning == true %}
-					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio" . {{calendar.codeMorning}} name="dateChoice" value="{{calendar.codeMorning}}" disabled></td>
+					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" name="dateChoice" value="{{calendar.codeMorning}}" disabled></td>
 				{% else %}
-					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio" . {{calendar.codeMorning}} name="dateChoice" value="{{calendar.codeMorning}}"></td>
+					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" name="dateChoice" value="{{calendar.codeMorning}}" required></td>
 				{% endif %}
 				<td>{{ calendar.afternoon }}</td>
 				{% if calendar.isAfternoon == true %}
-					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio" . {{calendar.codeAfternoon}} name="dateChoice" value="{{calendar.codeAfternoon}}" disabled></td>
+					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" name="dateChoice" value="{{calendar.codeAfternoon}}" disabled></td>
 				{% else %}
-					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio" . {{calendar.codeAfternoon}} name="dateChoice" value="{{calendar.codeAfternoon}}"></td>
+					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" name="dateChoice" value="{{calendar.codeAfternoon}}"></td>
 				{% endif %}
 				{% if calendar.isAllDay == true %}
-					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio" . {{calendar.codeAllDay}} name="dateChoice" value="{{calendar.codeAllDay}}" disabled></td>
+					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" name="dateChoice" value="{{calendar.codeAllDay}}" disabled></td>
 				{% else %}
-					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" id="radio" . {{calendar.codeAllDay}} name="dateChoice" value="{{calendar.codeAllDay}}"></td>
+					<td class="text-bg-success text-center"><input type="radio" class="form-check-input" name="dateChoice" value="{{calendar.codeAllDay}}"></td>
 				{% endif %}
 			</tr>
 		{% endfor %}

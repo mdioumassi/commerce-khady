@@ -66,7 +66,7 @@ class TresseController extends AbstractController
         EntityManagerInterface $entityManager,
         ): Response
     {
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && $request->request->has('dateChoice')) {
             $data = $request->request->all();
             if (!array_key_exists('dateChoice', $data)) {
                 throw $this->createNotFoundException('The dateChoice does not exist');
@@ -84,9 +84,12 @@ class TresseController extends AbstractController
             if (array_key_exists('number-girl', $data)) {
                 $tresse->setNumberPerson($data['number-girl']);
             }
-            $tresse->addProduct($product);
+            $product->addTress($tresse);
+            $entityManager->persist($product);
             $entityManager->persist($tresse);
             $entityManager->flush();
+
+            return $this->redirectToRoute('cart.add', ['id' => $product->getId()]);
         }
         $productDetail = $productRepository->findByProductSlug($product);
         if (!$productDetail) {
@@ -109,22 +112,15 @@ class TresseController extends AbstractController
         $dayWeekMorning = ['Lundi-9-12', 'Mardi-9-12', 'Mercredi-9-12', 'Jeudi-9-12', 'Vendredi-9-12', 'Samedi-9-12', 'Dimanche-9-12'];
         $dayWeekAfternoon = ['Lundi-12-22', 'Mardi-12-22', 'Mercredi-12-22', 'Jeudi-12-22', 'Vendredi-12-22', 'Samedi-12-22', 'Dimanche-12-22'];
         $dayWeekAllDay = ['Lundi-all-day', 'Mardi-all-day', 'Mercredi-all-day', 'Jeudi-all-day', 'Vendredi-all-day', 'Samedi-all-day', 'Dimanche-all-day'];
-        if (in_array($calendar->getCodeMorning(), $dayWeekMorning)) {  
+        if (in_array($dateChoice, $dayWeekMorning)) {  
             $calendar->setIsMorning(true);
-            $calendar->setCodeAfternoon('');
-            $calendar->setCodeAllDay('');
-        }
-        if (in_array($calendar->getCodeAfternoon(), $dayWeekAfternoon)) {
+        } elseif (in_array($dateChoice, $dayWeekAfternoon)) {
             $calendar->setIsAfternoon(true);
-            $calendar->setCodeMorning('');
-            $calendar->setCodeAllDay('');
-        }
-        if (in_array($calendar->getCodeAllDay(), $dayWeekAllDay)){
+        } elseif (in_array($dateChoice, $dayWeekAllDay)) {
             $calendar->setIsAllDay(true);
-            $calendar->setCodeMorning('');
-            $calendar->setCodeAfternoon('');
         }
-            $entityManager->persist($calendar);
+
+        $entityManager->persist($calendar);
         $entityManager->flush();
     }
 }

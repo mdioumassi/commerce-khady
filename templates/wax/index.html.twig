@@ -1,31 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos waxs{% endblock %}
+{% block title %}Nos waxs
+{% endblock %}
 
 {% block body %}
-    <div style="background:url(https://picsum.photos/500/500)" class="py-5 text-white text-center">
-    <h1>My First Bootstrap 5 Page</h1>
-    <p>Resize this responsive page to see the effect!</p> 
-    </div>
-    {% include 'shared/_navbar.html.twig' %}
-	<div class="container">
-		<h1>Nos waxs</h1>
-		<div class="row">
-			{% for wax in waxs %}
-				<div class="col-sm-3 mb-4">
-					<div class="card">
-						<img src="{{ wax.image }}" class="img-fluid" alt="">
-						<div class="card-body">
-							<h4 class="cartd-title">{{ wax.title }}</h4>
-							<p class="card-text">
-								{{ wax.description }}
-							</p>
-							<a href="#" class="btn btn-primary btn-sm">Détails</a>
-							<a href="#" class="btn btn-success btn-sm">Ajouter au panier</a>
-						</div>
+	<h1>Nos waxs</h1>
+	<div class="row">
+		{% for wax in waxs %}
+			<div class="col-sm-3 mb-4">
+				<div class="card">
+					<img src="{{ wax.image }}" class="img-fluid" alt="">
+					<div class="card-body">
+						<h4 class="cartd-title">{{ wax.title }}</h4>
+						<p class="card-text">
+							{{ wax.description }}
+						</p>
+						<a href="#" class="btn btn-primary btn-sm">Détails</a>
+						<a href="#" class="btn btn-success btn-sm">Ajouter au panier</a>
 					</div>
 				</div>
-			{% endfor %}
-		</div>
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}

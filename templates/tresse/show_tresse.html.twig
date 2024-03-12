@@ -5,19 +5,13 @@
 {% endblock %}
 
 {% block body %}
-	<div style="background:url(https://picsum.photos/500/500); no-repeat" class="py-5 text-white text-center">
-		<h1>My First Bootstrap 5 Page</h1>
-		<p>Resize this responsive page to see the effect!</p>
-	</div>
-	{% include 'shared/_navbar.html.twig' %}
-	<div class="container mt-5">
-		<div class="row">
+		<div class="row mt-5">
 			<div class="col-5">
 				<img class="img-fluid" src="https://picsum.photos/600/600" alt="">
 			</div>
 			<div class="col">
-				<h1>{{ product.name}}({{product.price/100}}€)</h1>
-				{# <span class="badge bg-primary">{{ product.tresse.gender }}</span> #}
+				<h1>{{ product.name}}({{product.price}}€)</h1>
+				<span class="badge bg-primary">{{ product.genre }}</span>
 				<p>{{ product.description }}</p>
 				<form method="POST">
 					<div class="col-9">
@@ -47,24 +41,25 @@
 									</div>
 								</div>
 								<div class="mb-3 mt-3 text-center input-group">
-									<span class="input-group-text">Nombre de personnes à tresser:</span>
-									<input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5">
+									<span class="input-group-text">Nombre de personnes à tresser<span class="text-danger">*</span>:</span>
+									<input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5" required>
 								</div>
 							</div>
 						</fieldset>
 						{{ render(controller('App\\Controller\\CalendarController::index')) }}
 						<div class="d-grid mb-5">
-							<button type="submit" class="btn btn-primary btn-block">Valider</button>
+							<a href="{{path('cart.add', {'id':product.id})}}">
+								<button type="submit" class="btn btn-primary btn-block">Ajouter au panier</button>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
-{% block javascripts %}
-	<script>
-		$(document).ready(function () {
+	{% endblock %}
+	{% block javascripts %}
+		<script>
+			$(document).ready(function () {
 $('#mon-address').val('Chez moi !\nAdresse: 10 Allée des cèdres 93420 Villepinte\nBâtiment: A\nTéléphone: 06 00 00 00 00');
 $("#address-client").hide();
 $("#mySwitch").click(function () {
@@ -77,5 +72,5 @@ $('#encart-me-deplacer').show();
 }
 });
 });
-	</script>
-{% endblock %}
+		</script>
+	{% endblock %}

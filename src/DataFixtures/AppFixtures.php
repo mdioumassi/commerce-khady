@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
     {
         $faker = \Faker\Factory::create('fr_FR');
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
-        $faker->addProvider(new \Liior\Faker\Prices($faker));
+       // $faker->addProvider(new \Liior\Faker\Prices($faker));
         //Tresse
         $productType1 = new ProductType();
         $productType1->setName('Tresse');
@@ -39,8 +39,9 @@ class AppFixtures extends Fixture
             $product = new Product();
             $product->setName($faker->productName());
             $product->setSlug(strtolower($this->slugger->slug($product->getName())));
-            $product->setPrice($faker->price(2000, 3000));
+            $product->setPrice($faker->randomFloat(2, 10, 100));
             $product->setDescription($faker->text(200));
+            $product->setGenre($faker->randomElement(['Jeune Fille', 'Fille', 'Dame']));
             $product->setProductType($productType1);
             $manager->persist($product);
         }

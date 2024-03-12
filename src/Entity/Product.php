@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -25,17 +27,19 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
-    private ?Wax $wax = null;
-
-    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
-    private ?Savon $savon = null;
-
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?Tresse $tresse = null;
-
     #[ORM\ManyToOne(inversedBy: 'product')]
     private ?ProductType $productType = null;
+
+    #[ORM\ManyToMany(targetEntity: Tresse::class, inversedBy: 'product')]
+    private Collection $tresses;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $genre = null;
+
+    public function __construct()
+    {
+        $this->tresses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,52 +94,6 @@ class Product
         return $this;
     }
 
-    public function getWax(): ?Wax
-    {
-        return $this->wax;
-    }
-
-    public function setWax(Wax $wax): static
-    {
-        // set the owning side of the relation if necessary
-        if ($wax->getProduct() !== $this) {
-            $wax->setProduct($this);
-        }
-
-        $this->wax = $wax;
-
-        return $this;
-    }
-
-    public function getSavon(): ?Savon
-    {
-        return $this->savon;
-    }
-
-    public function setSavon(Savon $savon): static
-    {
-        // set the owning side of the relation if necessary
-        if ($savon->getProduct() !== $this) {
-            $savon->setProduct($this);
-        }
-
-        $this->savon = $savon;
-
-        return $this;
-    }
-
-    public function getTresses(): ?Tresse
-    {
-        return $this->tresse;
-    }
-
-    public function setTresses(?Tresse $tresse): static
-    {
-        $this->tresse = $tresse;
-
-        return $this;
-    }
-
     public function getProductType(): ?ProductType
     {
         return $this->productType;
@@ -144,6 +102,34 @@ class Product
     public function setProductType(?ProductType $productType): static
     {
         $this->productType = $productType;
+
+        return $this;
+    }
+
+    public function addTress(Tresse $tress): static
+    {
+        if (!$this->tresses->contains($tress)) {
+            $this->tresses->add($tress);
+        }
+
+        return $this;
+    }
+
+    public function removeTress(Tresse $tress): static
+    {
+        $this->tresses->removeElement($tress);
+
+        return $this;
+    }
+
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?string $genre): static
+    {
+        $this->genre = $genre;
 
         return $this;
     }

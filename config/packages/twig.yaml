@@ -1,5 +1,14 @@
 twig:
     file_name_pattern: '*.twig'
+    form_themes:
+        - 'bootstrap_4_layout.html.twig'
+    globals:
+        site_name: 'khadi'
+        site_url: 'https://example.com'
+        google_analytics: 'UA-XXXXX-Y'
+        facebook_app_id: '123456789'
+        twitter_username: 'example'
+        cartService: '@App\Service\CartService'
 
 when@test:
     twig:

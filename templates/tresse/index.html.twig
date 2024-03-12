@@ -4,29 +4,30 @@
 {% endblock %}
 
 {% block body %}
- 	<div style="background:url(https://picsum.photos/500/500); no-repeat" class="py-5 text-white text-center">
-    <h1>My First Bootstrap 5 Page</h1>
-    <p>Resize this responsive page to see the effect!</p> 
-    </div>
-    {% include 'shared/_navbar.html.twig' %}
-	<div class="container">
+	<div class="row mt-5">
 		<h1>Nos tresses</h1>
-		<div class="row">
-			{% for product in products %}
-				<div class="col-sm-3 mb-4">
-					<div class="card">
-						<img src="https://picsum.photos/200/200" class="img-fluid" alt="">
-						<div class="card-body">
-							<h4 class="cartd-title">{{ product.name }}</h4>
-							<p class="card-text">
-								{{ product.description }}
-							</p>
-							<a href="{{path('app.tresse.show', {'slug':product.slug})}}" class="btn btn-primary btn-sm">Détails</a>
-							<a href="#" class="btn btn-success btn-sm">Ajouter au panier</a>
+		{% for product in products %}
+			<div class="col-sm-3 mb-4">
+				<div class="card">
+					<div class="text-center bg-success text-bg-success">{{ product.genre }}</div>
+					<img src="https://picsum.photos/200/200" class="img-fluid" alt="">
+					<div class="card-body">
+						<h4 class="cartd-title">{{ product.name }}</h4>
+						{# <p class="card-text">
+														{{ product.description }}
+													</p> #}
+						<h3>
+							<span class="mb-3 badge bg-success">{{ product.price }}
+								€</span>
+						</h3>
+
+						<div class="d-grid gap-3">
+							<a href="{{path('app.tresse.show', {'slug':product.slug})}}" class="btn btn-primary btn-block">Détails</a>
 						</div>
+						{# <a href="#" class="btn btn-success btn-sm">Ajouter au panier</a> #}
 					</div>
 				</div>
-			{% endfor %}
-		</div>
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}

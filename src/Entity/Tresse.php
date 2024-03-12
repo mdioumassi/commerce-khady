@@ -30,14 +30,11 @@ class Tresse
     #[ORM\Column(nullable: true)]
     private ?int $numberPerson = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $gender = null;
-
     #[ORM\ManyToOne(inversedBy: 'tresse')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Calendar $calendar = null;
 
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'tresses')]
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'tresses')]
     private Collection $products;
 
     public function __construct()
@@ -110,18 +107,6 @@ class Tresse
         return $this;
     }
 
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(?string $gender): static
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
     public function getCalendar(): ?Calendar
     {
         return $this->calendar;
@@ -140,27 +125,5 @@ class Tresse
     public function getProducts(): Collection
     {
         return $this->products;
-    }
-
-    public function addProduct(Product $product): static
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->setTresses($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): static
-    {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getTresses() === $this) {
-                $product->setTresses(null);
-            }
-        }
-
-        return $this;
     }
 }

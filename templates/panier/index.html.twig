@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier
+{% endblock %}
+
+{% block body %}
+	<h4>Mon panier</h4>
+	<form action="">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+					<th>Supprimer</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for cart in carts %}
+					
+					<tr>
+						<td style="width:55%">
+							<div class="row">
+								<div class="col-sm-4"><img src="https://picsum.photos/200/100" alt=""></div>
+								<div class="col">
+									<h5>{{cart.product.name}}</h5>
+									<span class="badge bg-primary">{{cart.product.genre}}</span>
+								</div>
+							</div>
+						</td>
+
+						<td class="align-middle">{{cart.product.price}}€</td>
+						<td class="align-middle"><input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5" value="{{cart.quantity}}"></td>
+						<td class="align-middle">X</td>
+						<td class="align-middle">{{cart.total}}€</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+
+					<td colspan="3">Total:</td>
+					<td colspan="3">{{total}}€</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+{% endblock %}

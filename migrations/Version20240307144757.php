@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240305160606 extends AbstractMigration
+final class Version20240307144757 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,9 +24,10 @@ final class Version20240305160606 extends AbstractMigration
         $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE image (id INT AUTO_INCREMENT NOT NULL, wax_id INT NOT NULL, savon_id INT NOT NULL, path VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_C53D045F343C5676 (wax_id), UNIQUE INDEX UNIQ_C53D045FEEDC9C19 (savon_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, tresse_id INT DEFAULT NULL, product_type_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, price INT NOT NULL, description VARCHAR(255) NOT NULL, INDEX IDX_D34A04ADDA818DBB (tresse_id), INDEX IDX_D34A04AD14959723 (product_type_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE product_tresse (product_id INT NOT NULL, tresse_id INT NOT NULL, INDEX IDX_A39A72A54584665A (product_id), INDEX IDX_A39A72A5DA818DBB (tresse_id), PRIMARY KEY(product_id, tresse_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE product_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(20) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE savon (id INT AUTO_INCREMENT NOT NULL, product_id INT NOT NULL, UNIQUE INDEX UNIQ_E3D9D2B14584665A (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE tresse (id INT AUTO_INCREMENT NOT NULL, calendar_id INT DEFAULT NULL, is_move TINYINT(1) DEFAULT 0, my_address VARCHAR(255) DEFAULT NULL, your_address VARCHAR(255) DEFAULT NULL, move_price INT DEFAULT NULL, number_person INT DEFAULT NULL, gender VARCHAR(255) DEFAULT NULL, INDEX IDX_C1E63301A40A2C8 (calendar_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE tresse (id INT AUTO_INCREMENT NOT NULL, calendar_id INT DEFAULT NULL, is_move TINYINT(1) DEFAULT 0, my_address VARCHAR(255) DEFAULT NULL, your_address VARCHAR(255) DEFAULT NULL, move_price INT DEFAULT NULL, number_person INT DEFAULT NULL, gender VARCHAR(255) DEFAULT NULL, genre VARCHAR(30) DEFAULT NULL, INDEX IDX_C1E63301A40A2C8 (calendar_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, nickname VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, is_verified TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_8D93D649A188FE64 (nickname), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE wax (id INT AUTO_INCREMENT NOT NULL, product_id INT NOT NULL, category_id INT NOT NULL, UNIQUE INDEX UNIQ_8CC7042F4584665A (product_id), INDEX IDX_8CC7042F12469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -34,6 +35,8 @@ final class Version20240305160606 extends AbstractMigration
         $this->addSql('ALTER TABLE image ADD CONSTRAINT FK_C53D045FEEDC9C19 FOREIGN KEY (savon_id) REFERENCES savon (id)');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04ADDA818DBB FOREIGN KEY (tresse_id) REFERENCES tresse (id)');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD14959723 FOREIGN KEY (product_type_id) REFERENCES product_type (id)');
+        $this->addSql('ALTER TABLE product_tresse ADD CONSTRAINT FK_A39A72A54584665A FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE product_tresse ADD CONSTRAINT FK_A39A72A5DA818DBB FOREIGN KEY (tresse_id) REFERENCES tresse (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE savon ADD CONSTRAINT FK_E3D9D2B14584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE tresse ADD CONSTRAINT FK_C1E63301A40A2C8 FOREIGN KEY (calendar_id) REFERENCES calendar (id)');
         $this->addSql('ALTER TABLE wax ADD CONSTRAINT FK_8CC7042F4584665A FOREIGN KEY (product_id) REFERENCES product (id)');
@@ -47,6 +50,8 @@ final class Version20240305160606 extends AbstractMigration
         $this->addSql('ALTER TABLE image DROP FOREIGN KEY FK_C53D045FEEDC9C19');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04ADDA818DBB');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD14959723');
+        $this->addSql('ALTER TABLE product_tresse DROP FOREIGN KEY FK_A39A72A54584665A');
+        $this->addSql('ALTER TABLE product_tresse DROP FOREIGN KEY FK_A39A72A5DA818DBB');
         $this->addSql('ALTER TABLE savon DROP FOREIGN KEY FK_E3D9D2B14584665A');
         $this->addSql('ALTER TABLE tresse DROP FOREIGN KEY FK_C1E63301A40A2C8');
         $this->addSql('ALTER TABLE wax DROP FOREIGN KEY FK_8CC7042F4584665A');
@@ -55,6 +60,7 @@ final class Version20240305160606 extends AbstractMigration
         $this->addSql('DROP TABLE category');
         $this->addSql('DROP TABLE image');
         $this->addSql('DROP TABLE product');
+        $this->addSql('DROP TABLE product_tresse');
         $this->addSql('DROP TABLE product_type');
         $this->addSql('DROP TABLE savon');
         $this->addSql('DROP TABLE tresse');
