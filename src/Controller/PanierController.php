@@ -32,4 +32,15 @@ class PanierController extends AbstractController
             'total' => $cartService->getTotal()
         ]);
     }
+
+    #[Route('/cart/remove/{id}', name: 'cart.remove', requirements: ["id" => "\d+"])]   
+    public function remove($id, ProductRepository $productRepository, CartService $cartService): Response
+    {
+        $product = $productRepository->find($id);
+        if (!$product) {
+            throw $this->createNotFoundException('Le produit n\'existe pas');
+        }
+        $cartService->remove($id);
+        return $this->redirectToRoute('app.cart.show');
+    }
 }

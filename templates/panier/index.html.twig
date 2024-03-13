@@ -12,13 +12,12 @@
 					<th>Produit</th>
 					<th>Prix</th>
 					<th>Quantité</th>
-					<th>Supprimer</th>
+					<th></th>
 					<th>Total</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for cart in carts %}
-					
 					<tr>
 						<td style="width:55%">
 							<div class="row">
@@ -32,7 +31,7 @@
 
 						<td class="align-middle">{{cart.product.price}}€</td>
 						<td class="align-middle"><input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5" value="{{cart.quantity}}"></td>
-						<td class="align-middle">X</td>
+						<td class="align-middle"></td>
 						<td class="align-middle">{{cart.total}}€</td>
 					</tr>
 				{% endfor %}
