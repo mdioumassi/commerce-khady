@@ -56,7 +56,21 @@ class CartService
         return $total;
     }
 
-    public function remove(int $id)
+    public function remove(int $id): void
+    {
+        $session = $this->requestStack->getSession();
+        $cart = $session->get('cart', []);
+        if (array_key_exists($id, $cart)) {
+            if ($cart[$id] > 1) {
+                $cart[$id]--;
+            } else {
+                unset($cart[$id]);
+            }
+        }
+        $session->set('cart', $cart);
+    }
+
+    public function decrement(int $id): void
     {
         $session = $this->requestStack->getSession();
         $cart = $session->get('cart', []);

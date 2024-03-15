@@ -4,46 +4,61 @@
 {% endblock %}
 
 {% block body %}
-	<h4>Mon panier</h4>
-	<form action="">
-		<table class="table table-bordered">
-			<thead>
+	<h1>Votre panier</h1>
+	{% if carts | length %}
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Produit</th>
+				<th>Prix</th>
+				<th>Quantité</th>
+				<th></th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for cart in carts %}
 				<tr>
-					<th>Produit</th>
-					<th>Prix</th>
-					<th>Quantité</th>
-					<th></th>
-					<th>Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for cart in carts %}
-					<tr>
-						<td style="width:55%">
-							<div class="row">
-								<div class="col-sm-4"><img src="https://picsum.photos/200/100" alt=""></div>
-								<div class="col">
-									<h5>{{cart.product.name}}</h5>
-									<span class="badge bg-primary">{{cart.product.genre}}</span>
-								</div>
+					<td style="width:55%">
+						<div class="row">
+							<div class="col-sm-4"><img src="https://picsum.photos/200/100" alt=""></div>
+							<div class="col">
+								<h5>{{cart.product.name}}</h5>
+								<span class="badge bg-primary">{{cart.product.genre}}</span>
 							</div>
-						</td>
-
-						<td class="align-middle">{{cart.product.price}}€</td>
-						<td class="align-middle"><input type="number" class="form-control-sm" id="number-girl" name="number-girl" min="1" max="5" value="{{cart.quantity}}"></td>
-						<td class="align-middle"></td>
-						<td class="align-middle">{{cart.total}}€</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-			<tfoot>
-				<tr>
-					<td></td>
-
-					<td colspan="3">Total:</td>
-					<td colspan="3">{{total}}€</td>
+						</div>
+					</td>
+					<td class="align-middle">{{cart.product.price}}€</td>
+					<td class="align-middle">
+						<a href="{{path('cart.add', {'id': cart.product.id})}}" class="btn btn-sm btn-primary">
+							<i class="fas fa-plus"></i>
+						</a>
+						<input type="text" class="form-control-sm" value="{{cart.quantity}}">
+						<a href="{{path('cart.decrement', {'id': cart.product.id})}}" class="btn btn-sm btn-primary">
+							<i class="fas fa-minus"></i>
+						</a>
+					</td>
+					<td class="align-middle">
+						<a href="{{path("cart.remove", {'id':cart.product.id})}}" class="btn btn-sm btn-danger">
+							<i class="fas fa-trash"></i>
+						</a>
+					</td>
+					<td class="align-middle">{{cart.total}}€</td>
 				</tr>
-			</tfoot>
-		</table>
-	</form>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td colspan="3">Total:</td>
+				<td colspan="3">{{total}}€</td>
+			</tr>
+		</tfoot>
+	</table>
+	<a href="#" class="btn btn-primary">Commander</a>
+	{% else %}
+		<p>Votre panier est vide</p>
+		<a href="{{path('app.home')}}" class="btn btn-primary">Retour à la boutique</a>
+	{% endif %}
+		
 {% endblock %}

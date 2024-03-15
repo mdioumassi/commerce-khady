@@ -81,9 +81,9 @@ class TresseController extends AbstractController
             }        
             $calendar = $calendarRepository->findByCodeDay($data['dateChoice']);
             $tresse->setCalendar($calendar);
-            if (array_key_exists('number-girl', $data)) {
-                $tresse->setNumberPerson($data['number-girl']);
-            }
+            // if (array_key_exists('number-girl', $data)) {
+            //     $tresse->setNumberPerson($data['number-girl']);
+            // }
             $product->addTress($tresse);
             $entityManager->persist($product);
             $entityManager->persist($tresse);
