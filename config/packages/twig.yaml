@@ -9,6 +9,7 @@ twig:
         facebook_app_id: '123456789'
         twitter_username: 'example'
         cartService: '@App\Service\CartService'
+        productTypeRepository: '@App\Repository\ProductTypeRepository'
 
 when@test:
     twig:

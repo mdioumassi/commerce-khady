@@ -1,0 +1,5 @@
+{% for type in productTypeRepository.findAll() %}
+	<li class="nav-item">
+		<a class="nav-link text-light" href="#">{{type.name}}</a>
+	</li>
+{% endfor %}

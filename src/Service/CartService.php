@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
@@ -13,22 +12,33 @@ class CartService
         protected RequestStack $requestStack)
     {
     }
-    public function add(int $id)
+
+    public function getCart(): array
     {
         $session = $this->requestStack->getSession();
-        $cart = $session->get('cart', []);
-        if (array_key_exists($id, $cart)) {
-            $cart[$id]++;
-        } else {
-            $cart[$id] = 1;
-        }
+        return $session->get('cart', []);
+    }
+
+    public function setCart(array $cart): void
+    {
+        $session = $this->requestStack->getSession();
         $session->set('cart', $cart);
+    }
+
+    public function add(int $id)
+    {
+        $cart = $this->getCart();
+        if (!array_key_exists($id, $cart)) {
+            $cart[$id] = 0;
+        }
+        $cart[$id]++;
+
+        $this->setCart($cart);
     }
 
     public function show()
     {
-        $session = $this->requestStack->getSession();
-        $cart = $session->get('cart', []);
+        $cart = $this->getCart();
         $detailCart = [];
 
         foreach ($cart as $id => $quantity) {
@@ -44,8 +54,7 @@ class CartService
     public function getTotal(): int
     {
         $total = 0;
-        $session = $this->requestStack->getSession();
-        $cart = $session->get('cart', []);
+        $cart = $this->getCart();
         foreach ($cart as $id => $quantity) {
             $product = $this->productRepository->find($id);
             if (!$product) {
@@ -58,8 +67,7 @@ class CartService
 
     public function remove(int $id): void
     {
-        $session = $this->requestStack->getSession();
-        $cart = $session->get('cart', []);
+        $cart = $this->getCart();
         if (array_key_exists($id, $cart)) {
             if ($cart[$id] > 1) {
                 $cart[$id]--;
@@ -67,13 +75,12 @@ class CartService
                 unset($cart[$id]);
             }
         }
-        $session->set('cart', $cart);
+        $this->setCart($cart);
     }
 
     public function decrement(int $id): void
     {
-        $session = $this->requestStack->getSession();
-        $cart = $session->get('cart', []);
+        $cart = $this->getCart();
         if (array_key_exists($id, $cart)) {
             if ($cart[$id] > 1) {
                 $cart[$id]--;
@@ -81,6 +88,6 @@ class CartService
                 unset($cart[$id]);
             }
         }
-        $session->set('cart', $cart);
+       $this->setCart($cart);
     }
 }
