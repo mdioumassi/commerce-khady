@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ProductRepository;
 use App\Service\CartService;
+use SessionIdInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,7 +35,8 @@ class PanierController extends AbstractController
         $cart = $this->cartService->show();
         return $this->render('panier/index.html.twig', [
             'carts' => $cart,
-            'total' => $this->cartService->getTotal()
+            'total' => $this->cartService->getTotal() + $this->cartService->getFraisDeplacement(),
+            'fraisDeplacement' => $this->cartService->getFraisDeplacement()
         ]);
     }
 

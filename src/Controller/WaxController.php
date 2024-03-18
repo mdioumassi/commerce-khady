@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class WaxController extends AbstractController
 {
-    #[Route('/wax', name: 'app.wax')]
+    #[Route('/waxs', name: 'app.waxs')]
     public function index(): Response
     {
         $wax1 = [

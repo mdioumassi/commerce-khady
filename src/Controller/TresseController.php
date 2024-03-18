@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TresseController extends AbstractController
 {
-    #[Route('/tresse', name: 'app.tresse')]
+    #[Route('/tresses', name: 'app.tresses')]
     public function index(ProductRepository $productRepository): Response
     {
-        $products = $productRepository->findAllByTypeProduct('Tresse');
+        $products = $productRepository->findAllByTypeProduct('Tresses');
         return $this->render('tresse/index.html.twig', [
             'products' => $products,
         ]);
@@ -78,11 +78,13 @@ class TresseController extends AbstractController
                 $tresse->setYourAddress($data['address-shift']);
                 $tresse->setMyAddress("");
                 $tresse->setMovePrice((int)$data['frais-deplacement']);
+                $request->getSession()->set('frais-deplacement', $data['frais-deplacement']);
             }        
             $calendar = $calendarRepository->findByCodeDay($data['dateChoice']);
             $tresse->setCalendar($calendar);
             // if (array_key_exists('number-girl', $data)) {
-            //     $tresse->setNumberPerson($data['number-girl']);
+            //     $request->getSession()->set('number-girl', $data['number-girl']);
+            //     //$tresse->setNumberPerson($data['number-girl']);
             // }
             $product->addTress($tresse);
             $entityManager->persist($product);

@@ -9,7 +9,7 @@
 			{{ render(controller('App\\Controller\\TresseController::lastTresseAdded')) }}
 			{% include "shared/_lien.html.twig" with {
             'class': 'float-end nav-link text-success',
-			'path': path('app.tresse'),
+			'path': path('app.tresses'),
             'icone': 'fa-solid fa-square-arrow-up-right',
             'text': "Toutes nos tresses"
        }%}
@@ -19,7 +19,7 @@
 			{{ render(controller('App\\Controller\\WaxController::lastWaxAdded')) }}
 			{% include "shared/_lien.html.twig" with {
             'class': 'float-end nav-link text-success',
-			'path': path('app.wax'),
+			'path': path('app.waxs'),
             'icone': 'fa-solid fa-square-arrow-up-right',
             'text': "Toutes nos waxs"
        }%}

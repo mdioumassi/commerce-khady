@@ -24,15 +24,18 @@ class AppFixtures extends Fixture
        // $faker->addProvider(new \Liior\Faker\Prices($faker));
         //Tresse
         $productType1 = new ProductType();
-        $productType1->setName('Tresse');
+        $productType1->setName('Tresses');
+        $productType1->setSlug(strtolower($this->slugger->slug($productType1->getName())));
         $manager->persist($productType1);
         //Wax
         $productType2 = new ProductType();
-        $productType2->setName('Wax');
+        $productType2->setName('Waxs');
+        $productType2->setSlug(strtolower($this->slugger->slug($productType2->getName())));
         $manager->persist($productType2);
         //Savon
         $productType3 = new ProductType();
-        $productType3->setName('Savon');
+        $productType3->setName('Savons');
+        $productType3->setSlug(strtolower($this->slugger->slug($productType3->getName())));
         $manager->persist($productType3);
 
         for ($i = 0; $i < 20; $i++) {

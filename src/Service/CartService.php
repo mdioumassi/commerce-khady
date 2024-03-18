@@ -9,9 +9,8 @@ class CartService
 {
     public function __construct(
         protected ProductRepository $productRepository,
-        protected RequestStack $requestStack)
-    {
-    }
+        protected RequestStack $requestStack
+    ){}
 
     public function getCart(): array
     {
@@ -23,6 +22,16 @@ class CartService
     {
         $session = $this->requestStack->getSession();
         $session->set('cart', $cart);
+    }
+
+    public function getQuantity(){
+         $session = $this->requestStack->getSession();
+         return $session->get('number-girl', []);
+    }
+
+    public function getFraisDeplacement(){
+        $session = $this->requestStack->getSession();
+        return (int)$session->get('frais-deplacement', 0);
     }
 
     public function add(int $id)
@@ -48,6 +57,7 @@ class CartService
             }
             $detailCart[] = new CartItem($product, $quantity);
         }
+
         return $detailCart;
     }
 
@@ -69,11 +79,7 @@ class CartService
     {
         $cart = $this->getCart();
         if (array_key_exists($id, $cart)) {
-            if ($cart[$id] > 1) {
-                $cart[$id]--;
-            } else {
-                unset($cart[$id]);
-            }
+            unset($cart[$id]);
         }
         $this->setCart($cart);
     }

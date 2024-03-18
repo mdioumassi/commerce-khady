@@ -11,7 +11,7 @@
 			<tr>
 				<th>Produit</th>
 				<th>Prix</th>
-				<th>Quantité</th>
+				<th>Nombre de personnes</th>
 				<th></th>
 				<th>Total</th>
 			</tr>
@@ -48,6 +48,11 @@
 			{% endfor %}
 		</tbody>
 		<tfoot>
+			<tr>
+			<td></td>
+				<td colspan="3">Frais déplacement:</td>
+				<td colspan="3">{{fraisDeplacement}}€</td>
+			</tr>
 			<tr>
 				<td></td>
 				<td colspan="3">Total:</td>
